@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.machete.unitywakatime": {
+      "version": "https://github.com/DavianMachete/Unity-WakaTime.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "0d797a9f12d00ac5949be6d741a6fdd2b3d156d1"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
@@ -161,7 +168,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.textmeshpro": {
-      "version": "3.0.6",
+      "version": "3.0.8",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -191,7 +198,7 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.9.2",
+      "version": "1.9.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
