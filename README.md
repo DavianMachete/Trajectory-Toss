@@ -1,5 +1,7 @@
 # Trajectory Toss - Ball-Throwing Simulation
 
+https://github.com/DavianMachete/Trajectory-Toss/assets/71349845/6380c5a4-2e0d-432d-9e0b-49c1a47558d0
+
 ## Introduction
 Welcome to 'Trajectory Toss' – a focused simulation where the art of ball throwing is your gateway to mastering trajectory prediction and the physics of motion and force.
 
