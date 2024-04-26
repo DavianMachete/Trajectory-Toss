@@ -16,12 +16,12 @@ namespace TS.Inputs
         private Vector2 _startPosition, _currentPosition, _lastPosition, _deltaPosition;
 
         // events
-        public event Action<Vector2> OnSingleTouchDrag;
+        public event Action<Vector2,Vector2> OnSingleTouchDrag;
         public event Action<Vector2> OnSingleTouchUp;
         public event Action<Vector2> OnSingleTouchDown;
 
 
-        #region Methods -> Unity callbacks
+        #region Methods -> Unity Callbacks
 
         private void Update()
         {
@@ -79,7 +79,7 @@ namespace TS.Inputs
                     if (_deltaPosition.magnitude == 0f)
                         break;
                     
-                    OnSingleTouchDrag?.Invoke(_deltaPosition);
+                    OnSingleTouchDrag?.Invoke(_currentPosition, _deltaPosition);
                     break;
                 }
                 default:
@@ -89,8 +89,12 @@ namespace TS.Inputs
 
         private bool IsTouchOverUI()
         {
-            var editorIsPointerOverGo = EventSystem.current.IsPointerOverGameObject();
-            var mobileIsPointerOverGo = EventSystem.current.IsPointerOverGameObject(0);
+            var system = EventSystem.current;
+            if (system is null)
+                return false;
+            
+            var editorIsPointerOverGo = system.IsPointerOverGameObject();
+            var mobileIsPointerOverGo = system.IsPointerOverGameObject(0);
             return IsEditorGameView() ? editorIsPointerOverGo : mobileIsPointerOverGo;
         }
 
@@ -105,9 +109,9 @@ namespace TS.Inputs
 
         private void UpdateTouch()
         {
+            _touch = null;
             if (IsEditorGameView() || Application.isEditor)
             {
-                _touch = null;
                 if (IsEditorGameView() && 
                     TryConvertMouseToTouch(out var touch))
                 {
@@ -160,7 +164,7 @@ namespace TS.Inputs
                 touch = new Touch(UInput.mousePosition, phase);
             }
 
-            return touch == null;
+            return touch != null;
         }
         
         private bool CanDrawTouchGUI()
