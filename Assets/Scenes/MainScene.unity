@@ -484,7 +484,7 @@ MonoBehaviour:
   target: {fileID: 732016277}
   player: {fileID: 1226387804}
   physicsManager: {fileID: 661195788}
-  linePositionsMaxCount: 94
+  linePositionsMaxCount: 140
 --- !u!120 &852017911
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -807,6 +807,9 @@ MonoBehaviour:
   raycastIgnore:
     serializedVersion: 2
     m_Bits: 256
+  targetMovmentSens: 30
+  targetZLimits: {x: -10, y: 200}
+  targetXLimits: {x: -50, y: 50}
 --- !u!4 &1226387805
 Transform:
   m_ObjectHideFlags: 0

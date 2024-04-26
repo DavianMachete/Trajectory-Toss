@@ -55,12 +55,15 @@ namespace TS.Gameplay
             _currentBall = ball;
             
             _line.enabled = true;
+            
             target.gameObject.SetActive(true);
         }
 
         private void OnThrown()
         {
             _line.enabled = false;
+            _line.positionCount = 0;
+            
             target.gameObject.SetActive(false);
         }
 
@@ -81,18 +84,28 @@ namespace TS.Gameplay
             ball.StartSimulation();
 
             var index = 0;
-            while (!ball.IsSimulated &&
-                   _line.positionCount < linePositionsMaxCount)
+            while (_line.positionCount < linePositionsMaxCount)
             {
                 physicsManager.Simulate();
+
+                if (ball.IsSimulated)
+                {
+                    target.position = ball.ContactPosition;
+                    var forward = ball.Velocity * -1f;
+                    target.rotation = Quaternion.LookRotation(forward, ball.ContactNormal);
+                    break;
+                }
+                
                 _line.positionCount = index + 1;
                 _line.SetPosition(index, ball.transform.position);
                 index++;
             }
 
-            target.position = ball.ContactPosition;
-            var forward = ball.Velocity * -1f;
-            target.rotation = Quaternion.LookRotation(forward, ball.ContactNormal);
+            if (_line.positionCount >= linePositionsMaxCount)
+            {
+                _line.positionCount = linePositionsMaxCount - 1;
+            }
+
             ball.DestroyBall();
         }
 
